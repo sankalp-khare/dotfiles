@@ -219,7 +219,7 @@ under the point. Useful if the matching paren is out of sight. "
 (global-set-key [f3] 'shell)
 
 ;; http proxy
-(setenv "http_proxy" "http://proxy.iiit.ac.in:8080")
+;; (setenv "http_proxy" "http://proxy.iiit.ac.in:8080")
 
 ;; auto-indent on newline
 (defun set-newline-and-indent ()
@@ -480,6 +480,61 @@ under the point. Useful if the matching paren is out of sight. "
 (setq svn-status-verbose nil)
 
 ;; ---------------------------------------------------------
+
+;; ---------------------------------------------------------
+;; =========================================================
+;; Level 3 : Stuff that needs stuff which isn't found in the
+;;           yum/apt repositories and has to be downloaded
+;;           into ~/.emacs.d/
+;; =========================================================
+;; ---------------------------------------------------------
+
+;; ---------------------------------------------------------
+;; package.el
+;; ---------------------------------------------------------
+
+;; Check if the installer gives you the latest version of package.el . If not,
+;; use this link to get the latest version and replace
+
+;; https://github.com/technomancy/package.el
+;; http://bit.ly/pkg-el23 (latest version compatible with emacs23.x)
+
+;; (when
+;;     (load
+;;      (expand-file-name "~/.emacs.d/elpa/package.elc"))
+;;   (package-initialize))
+
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+(require 'package)
+
+;; ---------------------------------------------------------
+;; [ELPA] Marmalade (Another source for package.el)
+;; http://marmalade-repo.org/
+;; ---------------------------------------------------------
+
+(add-to-list 'package-archives
+             '("marmalade" .
+               "http://marmalade-repo.org/packages/"))
+
+;; ---------------------------------------------------------
+;; [ELPA] MELPA (Another source for package.el)
+;; http://melpa.milkbox.net
+;; ---------------------------------------------------------
+
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(when (< emacs-major-version 24)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t))
+
+;; Adding the org-mode repo to package.el
+;; http://orgmode.org/elpa.html
+;; (require 'package)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+;; initialize package.el
+(package-initialize)
+
+;; ---------------------------------------------------------
 ;; [ELPA] python-mode
 ;; ---------------------------------------------------------
 
@@ -488,7 +543,15 @@ under the point. Useful if the matching paren is out of sight. "
 ;; comes with emacs
 (add-to-list 'load-path (concat (car (file-expand-wildcards "~/.emacs.d/elpa/python-mode-*")) "/"))
 (setq py-install-directory (concat (car (file-expand-wildcards "~/.emacs.d/elpa/python-mode-*")) "/"))
+;; (setq py-load-pymacs-p t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
+;; disable python.el
+(when (featurep 'python) (unload-feature 'python t))
+;; enable python-mode
 (require 'python-mode)
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;; ;; hacks for desired behaviour of py-execute-region
 ;; ;; this prevents py-execute-region eclipsing the python file buffer
@@ -508,74 +571,24 @@ under the point. Useful if the matching paren is out of sight. "
 ;;   (switch-to-buffer-other-window "*Python*"))
 ;; ;; after the execution of the two, the cursor actually ends up in the shell
 
+;; [[racket-mode obsoletes this block]]
 ;; [ELPA] quack mode for scheme programming
-(add-to-list 'load-path (concat (car (file-expand-wildcards "~/.emacs.d/elpa/quack-*")) "/"))
-(require 'quack)
+;; (add-to-list 'load-path (concat (car (file-expand-wildcards "~/.emacs.d/elpa/quack-*")) "/"))
+;; (require 'quack)
 ;; enter scheme-mode while editing .rkt files
-(setq auto-mode-alist
-      (cons '("\\.rkt$" . scheme-mode)
-            auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.rkt$" . scheme-mode)
+;;             auto-mode-alist))
 ;; set mzscheme as the default scheme interpreter
-(setq scheme-program-name "racket")
+;; (setq scheme-program-name "racket")
 ;; do not query for interpreter name if nothing is passed -- load the default
 ;; (setq quack-run-scheme-always-prompts-p nil)
 ;; pretty lambda ain't working :(
 ;; (setq quack-pretty-lambda-p t)
 
 ;; ---------------------------------------------------------
-
-;; ---------------------------------------------------------
-;; =========================================================
-;; Level 3 : Stuff that needs stuff which isn't found in the
-;;           yum/apt repositories and has to be downloaded
-;;           into ~/.emacs.d/
-;; =========================================================
-;; ---------------------------------------------------------
-
-;; ---------------------------------------------------------
-;; ELPA
-;; ---------------------------------------------------------
-
-;; Check if the installer gives you the latest version of package.el . If not,
-;; use this link to get the latest version and replace
-
-;; https://github.com/technomancy/package.el
-;; http://bit.ly/pkg-el23 (latest version compatible with emacs23.x)
-
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.elc"))
-  (package-initialize))
-
-;; ---------------------------------------------------------
-;; [ELPA] Marmalade (Another source for package.el)
-;; http://marmalade-repo.org/
-;; ---------------------------------------------------------
-
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" .
-               "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
-;; ---------------------------------------------------------
-;; [ELPA] MELPA (Another source for package.el)
-;; http://melpa.milkbox.net
-;; ---------------------------------------------------------
-
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-
-;; ---------------------------------------------------------
 ;; [ELPA] Org-mode
 ;; ---------------------------------------------------------
-
-;; Adding the org-mode repo to package.el
-;; http://orgmode.org/elpa.html
-(require 'package)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 ;; set default major mode for the scratch buffer
 ;; this line has to occur *after* the package.el initialization, since org is
@@ -781,8 +794,8 @@ under the point. Useful if the matching paren is out of sight. "
 
 ;; [ELPA] notify.el
 ;; send desktop notifications from Emacs
-(require 'notify)
-(autoload 'notify "notify" "Notify TITLE, BODY.")
+;; (require 'notify)
+;; (autoload 'notify "notify" "Notify TITLE, BODY.")
 
 ;; smart-compile+ for easy compilation and execution of c/c++ and other codes
 ;; http://www.emacswiki.org/emacs/smart-compile+.el
@@ -793,10 +806,10 @@ under the point. Useful if the matching paren is out of sight. "
 ;; [ELPA] Solarized Color Theme for Emacs
 ;; http://ethanschoonover.com/solarized
 ;; https://github.com/sellout/emacs-color-theme-solarized
-(when window-system
-  (progn
-    (require 'color-theme-solarized)
-    (color-theme-solarized-dark)))
+;; (when window-system
+;;   (progn
+;;     (require 'color-theme-solarized)
+;;     (color-theme-solarized-dark)))
 
 ;; ---------------------------------------------------------
 ;; =========================================================
