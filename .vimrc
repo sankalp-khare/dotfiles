@@ -68,10 +68,22 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 if version >= 600 
 	au BufNewFile,BufRead *.rkt set filetype=scheme
 endif
-	
+
+" Color theming
+":colo wombat
+
 "-------------------------------------------------------
 " Yash's pro-coder additions
 set makeprg=g++\ %\ -Wall
 map <F3> :w <CR> :make<CR> <CR>
 map <F2> :cn<CR>
 "-------------------------------------------------------
+
+if has("unix")
+	let s:uname = system("uname -s")
+	if s:uname == "Darwin"
+		" Do Mac stuff here
+		set backspace=indent,eol,start
+	endif
+endif
+

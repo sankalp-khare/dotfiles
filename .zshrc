@@ -1,147 +1,139 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="robbyrussell"
 ZSH_THEME="afowler"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
+# Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable bi-weekly auto-update checks
+# Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
 
-# Uncomment to change how often before auto-updates occur? (in days)
+# Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
-# Uncomment following line if you want to disable colors in ls
+# Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment following line if you want to disable autosetting terminal title.
+# Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment following line if you want to disable command autocorrection
-DISABLE_CORRECTION="true"
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
+# Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
 
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git svn)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git git-prompt brew osx sublime)
+plugins=(git brew osx sublime)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-export PATH=$PATH:/home/sankalp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+# User configuration
 
-# If wildcard doesn't expand, pass it on to the command
-setopt no_nomatch
+# export PATH="${HOME}/bin:/usr/texbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/Applications/Racket v6.1/bin"
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# http://www.refining-linux.org/archives/49/ZSH-Gem-15-Shared-history/
-# # Appends every command to the history file once it is executed
-setopt inc_append_history
-# # Reloads the history whenever you use it
-setopt share_history
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# smarter (sed/regex style behaviour) file renaming
-autoload -U zmv
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-# (try to) autocorrect commands not found in $PATH
-# default enabled
-# setopt correct
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# export SPROMPT="Correct %R to %r? (Yes, No, Abort, Edit) "
-# Colour!
-autoload -U colors && colors
-export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# if there are commands that are getting auto-corrected but you want them not to
-# add them here!
-# alias foobar="nocorrect foobar"
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# user@host type prompt
-export PROMPT="%n @ $PROMPT"
+# zsh-completions (brew)
+fpath=(/usr/local/share/zsh-completions $fpath)
 
-# prompt characters for types
-# http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/#repository-types
-# function prompt_char {
-#     git branch >/dev/null 2>/dev/null && echo '±' && return
-#     hg root >/dev/null 2>/dev/null && echo '☿' && return
-#     svn info >/dev/null 2>/dev/null && echo 'ƨ' && return
-#     echo '○'
-# }
-function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo 'ĝ | ' && return
-    hg root >/dev/null 2>/dev/null && echo 'ĥ | ' && return
-    svn info >/dev/null 2>/dev/null && echo 'ŝ | ' && return
-    echo ''
-}
-
-ORIG_PROMPT="$PROMPT"
-# set it when zsh initializes
-export PROMPT="$(prompt_char)$ORIG_PROMPT"
-# chpwd is called each time the directory is changed
-# use it to refresh the dirsymbol on each directory change
-function chpwd() {
-    export PROMPT="$(prompt_char)$ORIG_PROMPT"
-}
+# ansible setup | installing using brew now...
+# source ~/mobolt/tools/ansible/hacking/env-setup &>/dev/null
 
 # aliases
+alias mssh-add='ssh-add ~/mobolt/.mobolt-keypair/id_rsa'
+alias saasdir='cd ~/mobolt/code/public/forked/fe-framework'
+alias infradir='cd ~/mobolt/code/public/cloned/infra'
+alias pullall='saasdir; for environ in staging production master; do git checkout $environ; git pull; done'
+alias less='less -R' # colour codes are intepreted properly
 alias pine='alpine'
 alias pine-research='alpine -p ~sankalp/.pinerc-research'
 alias perms="stat -c '%a'"
 alias wget='wget -c' # resume downloads
 alias vimr='vim -R'
-alias tconn_on='export LD_PRELOAD=$HOME/.tconn/tconn.so'
-alias tconn_off='unset LD_PRELOAD'
-alias rescene='mono ~/bin/srr.exe'
-alias resample='mono ~/bin/srs.exe'
-alias youtube-dl='mkdir -p ~/vidz-youtube; cd ~/vidz-youtube; youtube-dl'
-alias utdir="cd /opt/utorrent/"
-unalias gcp
+alias 'mosh=export LC_CTYPE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && mosh'
 
-# fortune! quotes OR buddhist quotes
-if [[ $TERM != "dumb" ]]
-then
-    if (( $RANDOM % 2 ))
-    then
-        fortune
-    else
-        display-dhammapada
-    fi
-fi
+# indeed VPN stuff
+function connectvpn(){
+    ADDRESS=$1
+    AUTH_GROUP=$2
+    USER=$3
 
-# for emacs tramp to work properly (server-side)
-if [[ $TERM == "dumb" ]]
-then
-    unsetopt zle && PS1='%n @ %m $ '
-fi
+    sudo openconnect --reconnect-timeout 86400 \
+	 --timestamp \
+	 --disable-ipv6 \
+	 -u "$USER" \
+	 --authgroup "$AUTH_GROUP" \
+	 "$ADDRESS"
+}
 
-# make gcp get the same completion behaviour as is offered to cp #awesome
-compdef _cp gcp
+alias vpn-disconnect='sudo pkill openconnect'
+alias vpn-ops-internal='connectvpn clientvpn.indeed.com "Client VPN" sankalp'
+alias vpn-ops-remote='connectvpn clientvpn.indeed.com VPN-Remote sankalp'
+alias vpn-indeed-general='connectvpn corpvpn.indeed.com "VPN Client" sankalp'
+alias vpn-indeed-india='connectvpn indiavpn.indeed.com "VPN Client" sankalp'
+alias vpn-indeed-apac='connectvpn apacvpn.indeed.com "VPN Client" sankalp'
+
+# OS X specific aliases
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+alias ls='gls --color=auto'
+alias find='gfind'
+alias sed='gsed'
 
 # proxy settings functions
 # SRC: https://wiki.archlinux.org/index.php/proxy_settings
 function setproxy(){
-#    echo -n "username:"
-#    read -e username
-#    echo -n "password:"
-#    read -es password
-#    export http_proxy="http://$username:$password@proxyserver:8080/"
+    #    echo -n "username:"
+    #    read -e username
+    #    echo -n "password:"
+    #    read -es password
+    #    export http_proxy="http://$username:$password@proxyserver:8080/"
     echo -n "Proxy Server IP:   "
     read PROXY_SERVER
     echo -n "Proxy Server Port: "
@@ -151,7 +143,7 @@ function setproxy(){
     export ftp_proxy=$http_proxy
     export rsync_proxy=$http_proxy
     export no_proxy="localhost,127.0.0.1"
-#    echo -e "\nProxy environment variable set."
+    #    echo -e "\nProxy environment variable set."
 }
 
 # a version that takes 2 arguments instead of querying the user
@@ -183,3 +175,26 @@ function unsetproxy(){
 # unsetting proxy for visit home...
 unsetproxy
 
+# informative git prompt | https://github.com/olivierverdier/zsh-git-prompt
+source ~/.zsh-git-prompt/zshrc.sh
+# now set the prompt
+PROMPT='[ %{$fg[magenta]%}%D %T%{$reset_color%} ] %m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[green]}%}%3~ $(git_super_status) %{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%}
+'
+
+# If we're using a dumb terminal (ie. emacs), assume we don't want colour.
+if [[ "$TERM" == "dumb" ]];
+then
+    PROMPT="%~ %# "
+fi
+
+# auto-complete for awscli
+source /usr/local/share/zsh/site-functions/_aws
+
+eval "$(pyenv init -)"
+
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
