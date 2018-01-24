@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -5,7 +6,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="afowler"
+# ZSH_THEME="afowler"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -126,54 +128,54 @@ alias ls='gls --color=auto'
 alias find='gfind'
 alias sed='gsed'
 
-# proxy settings functions
-# SRC: https://wiki.archlinux.org/index.php/proxy_settings
-function setproxy(){
-    #    echo -n "username:"
-    #    read -e username
-    #    echo -n "password:"
-    #    read -es password
-    #    export http_proxy="http://$username:$password@proxyserver:8080/"
-    echo -n "Proxy Server IP:   "
-    read PROXY_SERVER
-    echo -n "Proxy Server Port: "
-    read PROXY_PORT
-    export http_proxy="http://${PROXY_SERVER}:${PROXY_PORT}/"
-    export https_proxy=$http_proxy
-    export ftp_proxy=$http_proxy
-    export rsync_proxy=$http_proxy
-    export no_proxy="localhost,127.0.0.1"
-    #    echo -e "\nProxy environment variable set."
-}
-
-# a version that takes 2 arguments instead of querying the user
-# useful for scripting...
-function setproxy_with_args(){
-    PROXY_SERVER=$1
-    PROXY_PORT=$2
-    export http_proxy="http://${PROXY_SERVER}:${PROXY_PORT}/"
-    export https_proxy=$http_proxy
-    export ftp_proxy=$http_proxy
-    export rsync_proxy=$http_proxy
-    export no_proxy="localhost,127.0.0.1"
-}
-
-function unsetproxy(){
-    unset HTTP_PROXY
-    unset http_proxy
-    unset HTTPS_PROXY
-    unset https_proxy
-    unset FTP_PROXY
-    unset ftp_proxy
-    unset RSYNC_PROXY
-    unset rsync_proxy
-}
-
-# manually set the proxy for all zsh sessions
-# setproxy_with_args 10.4.3.204 8080
-
-# unsetting proxy for visit home...
-unsetproxy
+# # proxy settings functions
+# # SRC: https://wiki.archlinux.org/index.php/proxy_settings
+# function setproxy(){
+#     #    echo -n "username:"
+#     #    read -e username
+#     #    echo -n "password:"
+#     #    read -es password
+#     #    export http_proxy="http://$username:$password@proxyserver:8080/"
+#     echo -n "Proxy Server IP:   "
+#     read PROXY_SERVER
+#     echo -n "Proxy Server Port: "
+#     read PROXY_PORT
+#     export http_proxy="http://${PROXY_SERVER}:${PROXY_PORT}/"
+#     export https_proxy=$http_proxy
+#     export ftp_proxy=$http_proxy
+#     export rsync_proxy=$http_proxy
+#     export no_proxy="localhost,127.0.0.1"
+#     #    echo -e "\nProxy environment variable set."
+# }
+# 
+# # a version that takes 2 arguments instead of querying the user
+# # useful for scripting...
+# function setproxy_with_args(){
+#     PROXY_SERVER=$1
+#     PROXY_PORT=$2
+#     export http_proxy="http://${PROXY_SERVER}:${PROXY_PORT}/"
+#     export https_proxy=$http_proxy
+#     export ftp_proxy=$http_proxy
+#     export rsync_proxy=$http_proxy
+#     export no_proxy="localhost,127.0.0.1"
+# }
+# 
+# function unsetproxy(){
+#     unset HTTP_PROXY
+#     unset http_proxy
+#     unset HTTPS_PROXY
+#     unset https_proxy
+#     unset FTP_PROXY
+#     unset ftp_proxy
+#     unset RSYNC_PROXY
+#     unset rsync_proxy
+# }
+# 
+# # manually set the proxy for all zsh sessions
+# # setproxy_with_args 10.4.3.204 8080
+# 
+# # unsetting proxy for visit home...
+# unsetproxy
 
 # informative git prompt | https://github.com/olivierverdier/zsh-git-prompt
 source ~/.zsh-git-prompt/zshrc.sh
@@ -187,6 +189,8 @@ then
     PROMPT="%~ %# "
 fi
 
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+
 # auto-complete for awscli
 source /usr/local/share/zsh/site-functions/_aws
 
@@ -198,3 +202,5 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zprof

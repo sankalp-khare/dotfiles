@@ -522,16 +522,16 @@ under the point. Useful if the matching paren is out of sight. "
 ;; [package.el] transpose-frame
 (require 'transpose-frame)
 
-;; [package.el] org-jira | http://baohaojun.github.io/org-jira.html
-(setq jiralib-url "https://bugs.indeed.com/")
-; you need make sure the jiralib-url is correct. Login your jira
-; server in browser, the home page URL should be like:
-; https://issues.apache.org/jira/secure/Dashboard.jspa
-; remove the "/secure/Dashboard.jspa" part and you get the jiralib-url:
-; "https://issues.apache.org/jira"
+;; ;; [package.el] org-jira | http://baohaojun.github.io/org-jira.html
+;; (setq jiralib-url "https://bugs.indeed.com/")
+;; ; you need make sure the jiralib-url is correct. Login your jira
+;; ; server in browser, the home page URL should be like:
+;; ; https://issues.apache.org/jira/secure/Dashboard.jspa
+;; ; remove the "/secure/Dashboard.jspa" part and you get the jiralib-url:
+;; ; "https://issues.apache.org/jira"
 
-(require 'org-jira)
-; jiralib is not explicitly required, since org-jira will load it
+;; (require 'org-jira)
+;; ; jiralib is not explicitly required, since org-jira will load it
 
 ;; ;; [ELPA] smooth-scrolling | http://www.adamspiers.org/elisp/smooth-scrolling.el
 ;; (require 'smooth-scrolling)
@@ -566,6 +566,9 @@ under the point. Useful if the matching paren is out of sight. "
 ;; paradox --- nicer UI for package.el | installed using package.el
 (require 'paradox)
 (paradox-enable)
+
+;; column highlighting in yaml files
+(add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
 
 ;; (require 'openwith)
 ;; (setq openwith-associations
