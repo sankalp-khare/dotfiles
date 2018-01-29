@@ -37,8 +37,14 @@
     (setq ns-alternate-modifier 'super
           ns-command-modifier 'meta))
 
+;; themes directory
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
 ;; load material theme
-(load-theme 'material t)
+;; (load-theme 'material t)
+
+;; load monokai theme
+(load-theme 'monokai t)
 
 ;; package.el
 (package-initialize)

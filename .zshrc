@@ -178,10 +178,10 @@ alias sed='gsed'
 # unsetproxy
 
 # informative git prompt | https://github.com/olivierverdier/zsh-git-prompt
-source ~/.zsh-git-prompt/zshrc.sh
+# source ~/.zsh-git-prompt/zshrc.sh
 # now set the prompt
-PROMPT='[ %{$fg[magenta]%}%D %T%{$reset_color%} ] %m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[green]}%}%3~ $(git_super_status) %{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%}
-'
+# PROMPT='[ %{$fg[magenta]%}%D %T%{$reset_color%} ] %m %{${fg_bold[blue]}%}:: %{$reset_color%}%{${fg[green]}%}%3~ $(git_super_status) %{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%}
+# '
 
 # If we're using a dumb terminal (ie. emacs), assume we don't want colour.
 if [[ "$TERM" == "dumb" ]];
@@ -189,7 +189,11 @@ then
     PROMPT="%~ %# "
 fi
 
+export PATH="$PATH:$HOME/bin" # Add personal binaries to PATH
+
+# powerlevel9k customizations
 export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S|%Y-%m-%d}"
 
 # auto-complete for awscli
 source /usr/local/share/zsh/site-functions/_aws
