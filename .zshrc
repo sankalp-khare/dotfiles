@@ -107,7 +107,7 @@ function connectvpn(){
     AUTH_GROUP=$2
     USER=$3
 
-    sudo openconnect --reconnect-timeout 86400 \
+    sudo openconnect --reconnect-timeout 900 \
 	 --timestamp \
 	 --disable-ipv6 \
 	 -u "$USER" \
@@ -192,8 +192,20 @@ fi
 export PATH="$PATH:$HOME/bin" # Add personal binaries to PATH
 
 # powerlevel9k customizations
-export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
-export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S|%Y-%m-%d}"
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE0B2 %Y-%m-%d}"
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_TIME_FOREGROUND='052' # 088 also okayish
+
+# coloured manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # auto-complete for awscli
 source /usr/local/share/zsh/site-functions/_aws
@@ -207,4 +219,17 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# zprof
+# turn off the "intelligent" escaping of special characters when pasting in text
+# makes using youtube-dl quite inconvenient
+# this works in a terminal, but not when set here? why?
+zstyle ':urlglobber' url-other-schema
+
+# Single-brace syntax because this is required in bash and sh alike
+if [ -e "$HOME/env/etc/indeedrc" ]; then
+    . "$HOME/env/etc/indeedrc"
+fi
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

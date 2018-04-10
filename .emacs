@@ -46,6 +46,9 @@
 ;; load monokai theme
 (load-theme 'monokai t)
 
+;; load earthsong theme
+;; (load-theme 'earthsong t) <--- something is wrong with font in this. not monospaced!
+
 ;; package.el
 (package-initialize)
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -218,14 +221,15 @@ under the point. Useful if the matching paren is out of sight. "
 (ispell-change-dictionary "english" t)
 
 ;; ido mode
-(ido-mode t)
-(setq
- ido-enable-flex-matching t      ; be flexible
- ido-everywhere t
- ido-confirm-unique-completion t ; wait for RET, even with unique completion
- ido-save-directory-list-file "~/.emacs.d/ido.last"
- ido-case-fold  t                ; be case-insensitive
- )
+;; [20180411] disabled in favour of helm
+;; (ido-mode t)
+;; (setq
+;;  ido-enable-flex-matching t      ; be flexible
+;;  ido-everywhere t
+;;  ido-confirm-unique-completion t ; wait for RET, even with unique completion
+;;  ido-save-directory-list-file "~/.emacs.d/ido.last"
+;;  ido-case-fold  t                ; be case-insensitive
+;;  )
 
 ;; auto-fill mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -405,7 +409,7 @@ under the point. Useful if the matching paren is out of sight. "
 (setq
  org-hide-leading-stars t              ;; only show a single (albeit indented) star regardless of heading level
  org-return-follows-link t             ;; open hyperlinks by pressing RET on them
- org-completion-use-ido t              ;; use ido completion wherever it makes sense
+; org-completion-use-ido t              ;; use ido completion wherever it makes sense
  org-blank-before-new-entry            ;; never insert blank lines
  '((heading . nil)
    (plain-list-item . nil))
@@ -610,6 +614,29 @@ under the point. Useful if the matching paren is out of sight. "
 
 ;; emacsclient EDITOR for magit
 (setenv "EDITOR" "emacsclient")
+;; speed up magit commit window's appearance
+;; https://williambert.online/2015/11/How-I-made-Magit-fast-again/
+(setq magit-commit-show-diff nil)
+;; ;; turn off display of recent commits in magit status
+;; (magit-add-section-hook 'magit-status-sections-hook
+;;                         'magit-insert-unpushed-to-upstream
+;;                         'magit-insert-unpushed-to-upstream-or-recent
+;;                         'replace)
+;; show a margin in log with time of commit
+;; (setq magit-buffer-margin '(t))
+(setq magit-log-margin '(t age magit-log-margin-width t 18))
+
+;; Standard Jedi.el setting
+;; source: http://tkf.github.io/emacs-jedi/latest/
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+;; helm
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+;; projectile
+(projectile-mode 1)
 
 ;; more PATH tweaking
 (add-to-list 'exec-path "/usr/local/bin")
@@ -620,7 +647,7 @@ under the point. Useful if the matching paren is out of sight. "
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (paradox yaml-tomato json-snatcher puppet-mode caps-lock elpy web-beautify unison-mode tidy ssh-config-mode smooth-scrolling smart-compile shell-history shell-current-directory shell-command rust-mode rake racket-mode python-mode pyenv-mode persistent-scratch org-octopress org-jira openwith markdown-mode+ magit-tramp magit-gh-pulls launchctl launch jist jira-markup-mode inf-ruby edit-server csv-mode auto-complete auctex ansible-doc ansible))))
+    (projectile helm jedi go-mode paradox yaml-tomato json-snatcher puppet-mode caps-lock elpy web-beautify unison-mode tidy ssh-config-mode smooth-scrolling smart-compile shell-history shell-current-directory shell-command rust-mode rake racket-mode python-mode pyenv-mode persistent-scratch org-octopress org-jira openwith markdown-mode+ magit-tramp magit-gh-pulls launchctl launch jist jira-markup-mode inf-ruby edit-server csv-mode auto-complete auctex ansible-doc ansible))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
