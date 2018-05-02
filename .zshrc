@@ -90,6 +90,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 # aliases
 alias mssh-add='ssh-add ~/mobolt/.mobolt-keypair/id_rsa'
+alias pssh-add='ssh-add ~/.ssh/id_rsa_github_personal'
 alias saasdir='cd ~/mobolt/code/public/forked/fe-framework'
 alias infradir='cd ~/mobolt/code/public/cloned/infra'
 alias pullall='saasdir; for environ in staging production master; do git checkout $environ; git pull; done'
