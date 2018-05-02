@@ -109,7 +109,7 @@
 (menu-bar-mode -1)
 
 ;; No Toolbar
-;; (tool-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; even more hardcore, no scrollbars
 (scroll-bar-mode -1)
@@ -221,15 +221,14 @@ under the point. Useful if the matching paren is out of sight. "
 (ispell-change-dictionary "english" t)
 
 ;; ido mode
-;; [20180411] disabled in favour of helm
-;; (ido-mode t)
-;; (setq
-;;  ido-enable-flex-matching t      ; be flexible
-;;  ido-everywhere t
-;;  ido-confirm-unique-completion t ; wait for RET, even with unique completion
-;;  ido-save-directory-list-file "~/.emacs.d/ido.last"
-;;  ido-case-fold  t                ; be case-insensitive
-;;  )
+(ido-mode t)
+(setq
+ ido-enable-flex-matching t      ; be flexible
+ ido-everywhere t
+ ido-confirm-unique-completion t ; wait for RET, even with unique completion
+ ido-save-directory-list-file "~/.emacs.d/ido.last"
+ ido-case-fold  t                ; be case-insensitive
+)
 
 ;; auto-fill mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -633,7 +632,8 @@ under the point. Useful if the matching paren is out of sight. "
 
 ;; helm
 (helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
+;; (global-set-key (kbd "M-x") 'helm-M-x) <--- this messes with magit
+;;                            (m-stat, mag-chec etc. short commands stop working!)
 
 ;; projectile
 (projectile-mode 1)
@@ -647,7 +647,7 @@ under the point. Useful if the matching paren is out of sight. "
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (projectile helm jedi go-mode paradox yaml-tomato json-snatcher puppet-mode caps-lock elpy web-beautify unison-mode tidy ssh-config-mode smooth-scrolling smart-compile shell-history shell-current-directory shell-command rust-mode rake racket-mode python-mode pyenv-mode persistent-scratch org-octopress org-jira openwith markdown-mode+ magit-tramp magit-gh-pulls launchctl launch jist jira-markup-mode inf-ruby edit-server csv-mode auto-complete auctex ansible-doc ansible))))
+    (web-mode projectile helm jedi go-mode paradox yaml-tomato json-snatcher puppet-mode caps-lock elpy web-beautify unison-mode tidy ssh-config-mode smooth-scrolling smart-compile shell-history shell-current-directory shell-command rust-mode rake racket-mode python-mode pyenv-mode persistent-scratch org-octopress org-jira openwith markdown-mode+ magit-tramp magit-gh-pulls launchctl launch jist jira-markup-mode inf-ruby edit-server csv-mode auto-complete auctex ansible-doc ansible))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
