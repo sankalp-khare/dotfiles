@@ -1,0 +1,32 @@
+[user]
+	email = sankalp@indeed.com
+	name = Sankalp Khare
+
+[push]
+	default = simple
+
+[log]
+    date = local
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = true
+    editor = /usr/bin/vim
+
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+  df = diff
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%%an>%Creset' --abbrev-commit
+  # see the revision history similar to gitk but in the command line
+  lol = log --pretty=format:'%C(yellow)%h %C(blue bold)%ad%C(reset)%C(white)%d %C(reset)%s %C(green)[%cn]' --date=short --all --graph --decorate
+  # pretty one-line log with tags, branches and authors
+  ls = log --pretty=format:'%C(yellow)%h %C(blue bold)%ad %C(reset)%C(white)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+  # more verbose log that shows changed files
+  ll = log --pretty=format:'%C(yellow)%h %C(blue bold)%ad %C(reset)%C(white)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short --stat

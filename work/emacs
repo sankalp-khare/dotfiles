@@ -1,0 +1,230 @@
+;; Sankalp's .emacs
+
+;; default to unified diffs
+(setq diff-switches "-u")
+
+;; Display time with day and date
+(setq display-time-day-and-date t)
+(display-time)
+
+;; turn on visual bell
+(setq visible-bell t)
+
+;; display line and column number in "status bar" (mode line)
+(line-number-mode 1)
+(column-number-mode 1)
+
+;; display file size in mode line
+(setq size-indication-mode t)
+
+;; set nu
+;; (global-linum-mode)
+
+;; set vertical split as default
+;; http://stackoverflow.com/a/7998271
+(setq split-width-threshold nil)
+
+;; set initial scratch buffer message
+(setq initial-scratch-message "# got an itch?\n# scratch it!\n\n")
+
+;; set default major mode for the scratch buffer
+(setq initial-major-mode 'org-mode)
+
+;; Highlight selected regions
+(transient-mark-mode t)
+
+;; If at beginning of a line, don't make me C-k twice.
+(setq kill-whole-line t)
+
+;; insert a newline at the end of a file if not present, at the time of saving
+(setq-default require-final-newline t)
+
+;; clear trailing whitespaces in lines at the time of saving
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Transparently open compressed files
+(auto-compression-mode t)
+
+;; Enable syntax highlighting for older Emacsen that have it off
+(global-font-lock-mode t)
+
+;; No Menu Bar
+(menu-bar-mode -1)
+
+;; No Toolbar
+;; (tool-bar-mode -1)
+
+;; remember location in files
+(require 'saveplace)
+(setq save-place-file "~/.emacs.d/emacs-places")
+(setq-default save-place t)
+
+;; auto-revert (read from disk) files that changed on disk, but haven't been
+;; edited by user
+(global-auto-revert-mode t)
+
+;; start the emacs server if running with X and if no other
+;; instance has a server running
+;; useful if emacs is to be specified as default SVN editor
+(when window-system
+  (unless (boundp 'server-process) ; why does this check not work??
+    (server-start)))
+
+;; don't show the startup message every time
+;; I know I'm using emacs, thanks
+(setq inhibit-startup-message t)
+
+;; http://news.ycombinator.com/item?id=1654619
+;; Display this instead of "For information about GNU Emacs and the
+;; GNU system, type C-h C-a.". This has been made intentionally hard
+;; to customize in GNU Emacs so I have to resort to hackery.
+(defun display-startup-echo-area-message ()
+  "If it wasn't for this you'd be GNU/Spammed by now"
+  (message "Hi, Welcome to Sankalp's Emacs!"))
+
+;; don't blink the cursor
+(blink-cursor-mode -1)
+
+;; Highlight matching parentheses
+(show-paren-mode 1)
+
+;; remove delay in showing parentheses
+(setq show-paren-delay 0)
+
+;; dunno what this does yet
+(setq show-paren-style 'mixed)
+
+;; parenthesis jumping
+;; http://emacs-fu.blogspot.in/2009/01/balancing-your-parentheses.html?showComment=1232229900000#c8552882987467504180
+(defun paren-jump ()
+  "Tries to jump to the matching parenthesis to the one currently
+under the point. Useful if the matching paren is out of sight. "
+  (interactive)
+  (cond ((looking-at "[{\[\(]") (forward-sexp 1) (backward-char))
+        ((looking-at "[]})]") (forward-char) (backward-sexp 1))
+        (t (message "Point not at a parenthesis."))))
+
+(global-set-key (kbd "C-x C-p") 'paren-jump)
+
+;; ediff buffers side-by-side, like it should
+(setq ediff-split-window-function 'split-window-horizontally)
+
+;; ---------------------------------------------------------
+;; Dired customizations
+;; ---------------------------------------------------------
+
+;; dired directory delete/copy behaviour customization
+(setq
+ dired-recursive-deletes 'always
+ dired-recursive-copies  'always
+ )
+
+;; automatically prompt to copy/move file to other dired-ed window
+(setq dired-dwim-target t)
+
+;; ---------------------------------------------------------
+;; Font customizations
+;; ---------------------------------------------------------
+
+;; font size
+(set-face-attribute 'default nil :height 140)
+
+;; ido mode
+(ido-mode t)
+(setq
+ ido-enable-flex-matching t      ; be flexible
+ ido-everywhere t
+ ido-confirm-unique-completion t ; wait for RET, even with unique completion
+ ido-save-directory-list-file "~/.emacs.d/ido.last"
+ ido-case-fold  t                ; be case-insensitive
+ )
+
+;; auto-fill mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(setq-default fill-column 78)
+
+;; allow typing y/n instead of yes/no in most cases
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;set the keybinding so that f3 will start the shell
+(global-set-key [f3] 'shell)
+
+(global-set-key [f4] 'save-close)
+
+;; use the parent dir name to distinguish b/w buffers with the same name
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; Make scripts executable automagically when saved
+;; works intelligently (e.g. skips C/C++ source code)
+(require 'executable)
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; Kills all them buffers except scratch
+;; copied from   http://www-cdf.fnal.gov/~sthrlnd/emacs_help.html
+;; obtained from http://www.chrislott.org/geek/emacs/dotemacs.html
+(defun nuke-all-buffers ()
+  "kill all buffers, leaving *scratch* only"
+  (interactive)
+  (mapcar (lambda (x) (kill-buffer x))
+          (buffer-list))
+  (delete-other-windows))
+
+;; function to indent whole buffer
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+;; functions to insert time, date etc Orgmode style :)
+(defun insert-time ()
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d %a %R]")))
+(defun insert-date ()
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d %a]")))
+
+;; ruby mode for these filetypes
+(add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|god\\|cap\\)\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\|Rake\\|Cap\\|Gem\\)file\\'" . ruby-mode))
+
+;; ---------------------------------------------------------
+;; Autosaves and Backups
+;; ---------------------------------------------------------
+
+;; Put autosave files (ie #foo#) in one place
+;; *not* scattered all over the file system!
+(defvar autosave-dir "~/.emacs.d/autosaves/")
+(make-directory autosave-dir t)
+(setq auto-save-file-name-transforms
+      `((".*" ,autosave-dir t)))
+
+;; Put backup files (ie foo~) in one place too.
+;; Emacs will mkdir it if necessary.
+(defvar backup-dir "~/.emacs.d/backups/")
+(setq backup-directory-alist (list (cons "." backup-dir)))
+
+;; my orgmode customizations
+(setq
+ org-hide-leading-stars t              ;; only show a single (albeit indented) star regardless of heading level
+ org-return-follows-link t             ;; open hyperlinks by pressing RET on them
+ org-completion-use-ido t              ;; use ido completion wherever it makes sense
+ org-blank-before-new-entry            ;; never insert blank lines
+ '((heading . nil)
+   (plain-list-item . nil))
+ org-insert-heading-respect-content t  ;; make new headings appear after the content for the current one
+ org-log-done 'time                    ;; logs a timestamp when an entry is marked DONE
+ org-log-done 'note                    ;; prompts for a note at closing
+ org-publish-timestamp-directory
+ (convert-standard-filename            ;; reduce clutter in homedir
+  "~/.emacs.d/org-timestamps/")
+ org-directory "~/.emacs.d/org-files/" ;; default org directory for files
+ org-default-notes-file                ;; default file for captured notes
+ (concat org-directory "notes.org")
+ )
+
+;; emacsclient EDITOR for magit
+(setenv "EDITOR" "emacsclient")
