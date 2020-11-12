@@ -31,41 +31,93 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     csv
-     go
-     html
-     shell-scripts
-     python
-     puppet
-     javascript
-     yaml
-     vimscript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ivy
      ;; auto-completion
-     ;; better-defaults
-     emacs-lisp
-     git
-     markdown
-     org
-     latex
-     terraform
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
      ;; version-control
+
+     ;; ====%%%%%%%%=========
+     ;; --- checkers --------
+     syntax-checking
+     ;; spell-checking
+     ;;
+     ;;=====%%%%%%%%%%=======
+     ;; --- completion ------
+     ivy
+     ;;
+     ;; ====%%%%%============
+     ;; --- emacs -----------
+     better-defaults
+     ibuffer
+     org
+     ;;
+     ;; ====%%%%%%%%%%=======
+     ;; --- frameworks ------
+     django
+     react
+     ;;
+     ;; ====%%%==============
+     ;; --- fun -------------
+     xkcd
+     ;;
+     ;; ====%%%%%%%%%%%%%%%==
+     ;; --- programming and -
+     ;; -- markup languages -
+     csv
+     emacs-lisp
+     go
+     html
+     java
+     javascript
+     latex
+     markdown
+     python
+     ruby
+     shell-scripts
+     typescript
+     yaml
+     ;;
+     ;; ====%%%%%%%%%%%%%%===
+     ;; --- source control --
+     git
+     ;;
+     ;; ====%%%%%============
+     ;; --- tools -----------
+     ansible
+     command-log
+     docker
+     nginx
+     puppet
+     restclient
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     terraform
+     vagrant
+     ;;
+     ;; ====%%%%=============
+     ;; --- vim -------------
+     vim-powerline
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rg deadgrep)
+   dotspacemacs-additional-packages '(deadgrep
+                                      fd-dired
+                                      groovy-mode
+                                      nord-theme
+                                      snazzy-theme
+                                      seti-theme
+                                      atom-one-dark-theme
+                                      material-theme
+                                      immaterial-theme
+                                      dracula-theme
+                                      vscode-dark-plus-theme
+                                      afternoon-theme)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -137,30 +189,25 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
+   dotspacemacs-themes '(vscode-dark-plus
+                         afternoon
+                         atom-one-dark
+                         nord
+                         dracula
+                         material
+                         immaterial-dark
                          snazzy
-                         wilson
                          seti
-                         spolsky
-                         graham
-                         hickey
-                         junio
                          spacemacs-dark
-                         solarized-dark
-                         hc-zenburn
-                         odersky
-                         tango-2
-                         gruvbox
-                         tsdh-dark
-                         spacemacs-light
-    )
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
+   ;; dotspacemacs-default-font '("Source Code Pro"
    dotspacemacs-default-font '("Hack"
-                               :size 14.5
-                               :weight regular
+                               :size 14
+                               :weight normal
                                :width normal
                                :powerline-scale 1.3)
    ;; The leader key
@@ -326,9 +373,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; to fix the error in loading base16-theme when you use snazzy theme
-  ;; source: https://github.com/syl20bnr/spacemacs/issues/8090#issuecomment-382918262
-  (mapc 'load (file-expand-wildcards "~/.emacs.d/elpa/base16-theme-*/base16-theme.el"))
   )
 
 (defun dotspacemacs/user-config ()
@@ -388,6 +432,9 @@ you should place your code here."
   ;; enable template expansion like <e + TAB for BEGIN_EXAMPLE block in org-mode
   ;; src: https://emacs.stackexchange.com/questions/19945/command-to-insert-code-block#comment64358_19946
   (require 'org-tempo)
+  ;; show a vertical bar to indicate the indent level in certain modes
+  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
+  (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -400,12 +447,10 @@ you should place your code here."
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
-   (quote
-    (terraform-mode hcl-mode kubernetes eclim csv-mode deadgrep auctex-latexmk auctex groovy-mode snazzy-theme base16-theme go-guru go-eldoc go-mode org-plus-contrib colorsarenice-theme niflheim-theme rg web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode insert-shebang fish-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake puppet-mode minitest chruby bundler inf-ruby yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit-popup magit transient git-commit with-editor lv web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode yaml-mode vimrc-mode dactyl-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
- '(paradox-github-token t))
+   '(groovy-mode vscode-dark-plus-theme immaterial-theme seti-theme nord-theme xcode-dusk-theme snazzy-theme base16-theme fd-dired deadgrep yaml-mode xkcd web-mode web-beautify vagrant-tramp vagrant unfill tide typescript-mode terraform-mode hcl-mode tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake puppet-mode pug-mode ob-restclient restclient ob-http nginx-mode mwim minitest livid-mode skewer-mode simple-httpd js2-refactor multiple-cursors js2-mode js-doc jinja2-mode ibuffer-projectile haml-mode go-guru go-eldoc go-mode emmet-mode eclim yasnippet dockerfile-mode docker tablist json-mode docker-tramp json-snatcher json-reformat csv-mode command-log-mode coffee-mode chruby bundler inf-ruby auctex-latexmk auctex ansible-doc ansible xterm-color shell-pop pony-mode org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term mmm-mode markdown-toc markdown-mode insert-shebang htmlize gnuplot gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck fish-mode eshell-z eshell-prompt-extras esh-help auto-dictionary yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit git-commit with-editor transient ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu elisp-slime-nav dumb-jump popup dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#DCDCCC" :background "#313131")))))
+ )
