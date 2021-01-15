@@ -1,0 +1,16 @@
+[aws]
+# don't show aws information
+disabled =  true
+
+[kubernetes]
+# enable this
+disabled = false
+
+[status]
+# enable this too
+disabled = false
+
+[time]
+# enable
+disabled = false
+time_format = "%F %T"
