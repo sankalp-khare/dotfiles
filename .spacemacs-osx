@@ -99,10 +99,6 @@ values."
             shell-default-position 'bottom)
      terraform
      vagrant
-     ;;
-     ;; ====%%%%=============
-     ;; --- vim -------------
-     vim-powerline
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -198,7 +194,6 @@ values."
                          nord
                          dracula
                          material
-                         immaterial-dark
                          snazzy
                          seti
                          spacemacs-dark
@@ -208,8 +203,8 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    ;; dotspacemacs-default-font '("Source Code Pro"
-   dotspacemacs-default-font '("Hack"
-                               :size 14
+   dotspacemacs-default-font '("JetBrainsMono Nerd Font"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.3)
@@ -407,11 +402,15 @@ you should place your code here."
    dired-recursive-deletes 'always
    dired-recursive-copies  'always)
   ;; magit customizations
+  ;; show 50 last commits in magit-status
   (setq magit-log-section-commit-count 50)
   ;; show author in magit-status "Recent commits"
   (setq magit-status-margin '(t age magit-log-margin-width t 18))
+  ;; use brew git (not working for some reason, still goes to /usr/bin/git)
+  (setq magit-git-executable "/usr/local/bin/git")
   ;; use git-delta for diffs
-  (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+  ;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+  ;; not working because the package isn't installed by spacemacs despite being mentioned in additional-packages
 
   ;; ;; check --force-with-lease by default, in the push popup
   ;; source: https://emacs.stackexchange.com/a/38643/14030 but doesn't work
@@ -444,6 +443,13 @@ you should place your code here."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
+
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -452,10 +458,11 @@ you should place your code here."
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
-   '(magit-delta groovy-mode vscode-dark-plus-theme immaterial-theme seti-theme nord-theme xcode-dusk-theme snazzy-theme base16-theme fd-dired deadgrep yaml-mode xkcd web-mode web-beautify vagrant-tramp vagrant unfill tide typescript-mode terraform-mode hcl-mode tagedit slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake puppet-mode pug-mode ob-restclient restclient ob-http nginx-mode mwim minitest livid-mode skewer-mode simple-httpd js2-refactor multiple-cursors js2-mode js-doc jinja2-mode ibuffer-projectile haml-mode go-guru go-eldoc go-mode emmet-mode eclim yasnippet dockerfile-mode docker tablist json-mode docker-tramp json-snatcher json-reformat csv-mode command-log-mode coffee-mode chruby bundler inf-ruby auctex-latexmk auctex ansible-doc ansible xterm-color shell-pop pony-mode org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term mmm-mode markdown-toc markdown-mode insert-shebang htmlize gnuplot gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck fish-mode eshell-z eshell-prompt-extras esh-help auto-dictionary yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic smeargle orgit magit-gitflow magit-popup gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit git-commit with-editor transient ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu elisp-slime-nav dumb-jump popup dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy)))
+   '(yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide typescript-mode terraform-mode hcl-mode tagedit spaceline powerline snazzy-theme base16-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file ob-restclient restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc markdown-mode magit-gitflow magit-popup xterm-color magit macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint js2-refactor multiple-cursors js2-mode js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make haml-mode groovy-mode google-translate golden-ratio go-guru go-eldoc go-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit with-editor gh-md flycheck-pos-tip pos-tip flycheck flx-ido flx fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim yasnippet dumb-jump popup dracula-theme dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat diminish define-word deadgrep spinner cython-mode csv-mode counsel-projectile projectile pkg-info epl counsel swiper ivy command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-highlight-symbol auto-compile packed auctex-latexmk auctex atom-one-dark-theme async ansible-doc ansible anaconda-mode pythonic f dash s aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link avy vscode-dark-plus-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+)
