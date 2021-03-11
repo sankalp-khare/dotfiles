@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(vimscript
+     rust
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -399,6 +400,11 @@ you should place your code here."
   ;; http://stackoverflow.com/a/7998271
   (setq split-width-threshold nil)
   ;; dired customizations
+  ;; explicitly configure brew gnu ls as the ls program to make fd-dired work
+  ;; source: https://stackoverflow.com/a/20027876/1527814
+  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls")
+  ;; sort directories first
+  (setq dired-listing-switches "-aBhl --group-directories-first")
   (setq
    dired-recursive-deletes 'always
    dired-recursive-copies  'always)
@@ -465,7 +471,7 @@ This function is called at the very end of Spacemacs initialization."
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(toml-mode ron-mode racer helm-gtags helm helm-core ggtags flycheck-rust dap-mode lsp-treemacs bui lsp-mode counsel-gtags cargo rust-mode epresent yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide typescript-mode terraform-mode hcl-mode tagedit spaceline powerline snazzy-theme base16-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file ob-restclient restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc markdown-mode magit-gitflow magit-popup xterm-color magit macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint js2-refactor multiple-cursors js2-mode js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make haml-mode groovy-mode google-translate golden-ratio go-guru go-eldoc go-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit with-editor gh-md flycheck-pos-tip pos-tip flycheck flx-ido flx fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim yasnippet dumb-jump popup dracula-theme dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat diminish define-word deadgrep spinner cython-mode csv-mode counsel-projectile projectile pkg-info epl counsel swiper ivy command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler inf-ruby bind-map bind-key auto-highlight-symbol auto-compile packed auctex-latexmk auctex atom-one-dark-theme async ansible-doc ansible anaconda-mode pythonic f dash s aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link avy vscode-dark-plus-theme)))
+   '(vimrc-mode helm-gtags helm helm-core ggtags dactyl-mode counsel-gtags toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -473,3 +479,16 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  )
 )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
