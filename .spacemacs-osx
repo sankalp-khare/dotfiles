@@ -73,6 +73,7 @@ values."
      html
      java
      javascript
+     kotlin
      ;; https://github.com/syl20bnr/spacemacs/issues/8467#issuecomment-284254636
      ;; setting the variable here to prevent auctex-latexmk issue at startup
      (latex :variables latex-build-command "LatexMk")
