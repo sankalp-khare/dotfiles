@@ -119,7 +119,13 @@ values."
                                       immaterial-theme
                                       dracula-theme
                                       vscode-dark-plus-theme
-                                      afternoon-theme)
+                                      afternoon-theme
+                                      ;; https://github.com/syl20bnr/spacemacs/issues/14321#issuecomment-769244043
+                                      ;; to allow me to use the master branch of spacemacs (for stability reasons)
+				                              (evil-magit :location (recipe
+                                                             :fetcher github
+                                                             :repo "emacs-evil/evil-magit"))
+				                              )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -463,30 +469,30 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ansi-color-names-vector
+     ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+   '(evil-want-Y-yank-to-eol nil)
+   '(package-selected-packages
+     '(vimrc-mode helm-gtags helm helm-core ggtags dactyl-mode counsel-gtags toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(vimrc-mode helm-gtags helm helm-core ggtags dactyl-mode counsel-gtags toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
+   '(evil-magit vimrc-mode dactyl-mode toml-mode racer flycheck-rust epresent cargo rust-mode yapfify yaml-mode xkcd ws-butler winum which-key wgrep web-mode web-beautify vscode-dark-plus-theme volatile-highlights vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill undo-tree toc-org tide terraform-mode tagedit spaceline snazzy-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort puppet-mode pug-mode popwin pony-mode pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http nord-theme nginx-mode neotree mwim multi-term move-text mmm-mode minitest material-theme markdown-toc magit-gitflow magit-delta macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint js2-refactor js-doc jinja2-mode ivy-hydra insert-shebang indent-guide immaterial-theme ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make groovy-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flx-ido fish-mode fill-column-indicator fd-dired fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav eclim dumb-jump dracula-theme dockerfile-mode docker diminish define-word deadgrep cython-mode csv-mode counsel-projectile command-log-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile auctex-latexmk atom-one-dark-theme ansible-doc ansible anaconda-mode aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
