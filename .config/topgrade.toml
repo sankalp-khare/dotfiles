@@ -3,7 +3,7 @@
 
 # Disable specific steps - same options as the command line flag
 #disable = ["system", "emacs"]
-disable = ["gem", "pipx", "microsoft_auto_update"]
+disable = ["gem", "pipx", "node", "pip3"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
