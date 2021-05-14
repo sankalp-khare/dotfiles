@@ -20,3 +20,6 @@
 [alias]
 # source: https://dev.to/chilcutt/smarter-git-checkout-with-fzf-2k5n
 	cof = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+# source: https://twitter.com/tenderlove/status/1392957802163802112?s=12
+        recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
+
