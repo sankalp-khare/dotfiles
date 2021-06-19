@@ -10,6 +10,16 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'		# begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'						# end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+# history-related settings for zsh
+# src: https://www.soberkoder.com/better-zsh-history/
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+setopt INC_APPEND_HISTORY
+export HISTTIMEFORMAT="[%F %T] "
+setopt EXTENDED_HISTORY
+# setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
 # normal output in ansible (not cowsay)
 export ANSIBLE_NOCOWS=1
 
