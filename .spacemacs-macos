@@ -555,7 +555,7 @@ before packages are loaded."
   ;; allow typing y/n instead of yes/no in most cases
   (fset 'yes-or-no-p 'y-or-n-p)
   ;; js2 / Javascript IDE indent
-  (setq js2-basic-offset 2)
+  (setq js-indent-level 4)
   ;; web mode indent
   ;; https://stackoverflow.com/a/43989898/1527814
   (setq-default
