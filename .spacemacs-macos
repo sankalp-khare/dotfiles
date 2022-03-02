@@ -617,6 +617,9 @@ before packages are loaded."
   (push "magit.*: .*" spacemacs-useful-buffers-regexp)
   ;; use git resolved by $PATH
   (setq-default magit-git-executable "git")
+  ;; format terraform files on save
+  ;; src: https://epkg.vercel.app/terraform-mode
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
   )
 
 
