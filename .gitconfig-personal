@@ -1,0 +1,9 @@
+# load this with the below code snippet in your main git config at ~/.gitconfig
+#
+# [includeIf "gitdir:~/code/github.com/sankalp-khare/"]
+# 	path = ~/code/github.com/sankalp-khare/.gitconfig-personal
+#
+
+[user]
+	email = sankalpkhare@gmail.com
+	name = "Sankalp Khare"
