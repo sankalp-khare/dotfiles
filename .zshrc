@@ -26,12 +26,21 @@ export ANSIBLE_NOCOWS=1
 # aliases
 alias ls='exa'
 alias gfp='git fetch --prune'
+alias gpfp='git pull && git fetch --prune'
 alias df='duf'
 
 # functions
+# indeed cd
+function icd {
+    # cd $(find ~/indeed -mindepth 2 -maxdepth 2 -type d -name "$1")
+    cd $(fd --exact-depth 2 -t d ... /Users/sankalp/indeed | fzf)
+}
 # fzf cd
 function fcd {
     cd $(fd -t d . | fzf)
 }
+
+# imports
+source /usr/local/Cellar/git-extras/6.5.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
