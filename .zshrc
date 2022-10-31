@@ -41,6 +41,6 @@ function fcd {
 }
 
 # imports
-source /usr/local/Cellar/git-extras/6.5.0/share/git-extras/git-extras-completion.zsh
+source /opt/homebrew/Cellar/git-extras/6.5.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
