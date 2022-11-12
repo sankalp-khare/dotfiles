@@ -1,4 +1,5 @@
 # delta pager config starts
+# source https://github.com/dandavison/delta#get-started
 [core]
     pager = delta
 
@@ -6,13 +7,15 @@
     diffFilter = delta --color-only
 
 [delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
+    navigate = true     # use n and N to move between diff sections
+    light = false       # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = true # display a side-by-side diff view instead of the traditional view
 
-[delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
 # delta pager config ends
 #
 [user]
