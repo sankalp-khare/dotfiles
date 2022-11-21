@@ -33,8 +33,6 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     bibtex
-     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -42,20 +40,17 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
+     bibtex
      emacs-lisp
      git
      go
      groovy
      helm
-     java
-     javascript
-     latex
      ;; lsp
+     latex
      markdown
      multiple-cursors
      org
-     puppet
-     python
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -64,7 +59,6 @@ This function should only modify configuration layer settings."
      ;; version-control
      terraform
      treemacs
-     typescript
      yaml
      )
 
@@ -80,7 +74,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       deadgrep
                                       fd-dired
-                                      yaml-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -96,12 +89,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only)
-
-  ;; source: https://develop.spacemacs.org/layers/+source-control/git/README.html#magit-delta
-  (setq-default dotspacemacs-configuration-layers
-                '((git :variables git-enable-magit-delta-plugin t)))
-  )
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -399,6 +387,11 @@ It should only modify the values of Spacemacs settings."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
 
+   ;; A value from the range (0..100), in increasing opacity, which describes the
+   ;; transparency level of a frame background when it's active or selected. Transparency
+   ;; can be toggled through `toggle-background-transparency'. (default 90)
+   dotspacemacs-background-transparency 90
+
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
 
@@ -551,7 +544,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile nil))
+   dotspacemacs-byte-compile t))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -568,8 +561,6 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; source: https://develop.spacemacs.org/layers/+source-control/git/README.html#magit-status-fullscreen
-  (setq-default git-magit-status-fullscreen t)
 )
 
 
@@ -587,73 +578,80 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; natural title bar with dark theme
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+  ;; general stuff
   ;; allow typing y/n instead of yes/no in most cases
   (fset 'yes-or-no-p 'y-or-n-p)
-  ;; js2 / Javascript IDE indent
-  (setq js-indent-level 4)
-  ;; web mode indent
-  ;; https://stackoverflow.com/a/43989898/1527814
-  (setq-default
-   web-mode-code-indent-offset 4
-   web-mode-markup-indent-offset 4)
+
   ;; ediff buffers side-by-side, like it should
   (setq ediff-split-window-function 'split-window-horizontally)
+
   ;; set vertical split as default
   ;; http://stackoverflow.com/a/7998271
   (setq split-width-threshold nil)
-  ;; dired customizations
-  ;; explicitly configure brew gnu ls as the ls program to make fd-dired work
-  ;; source: https://stackoverflow.com/a/20027876/1527814
-  (setq insert-directory-program "/opt/homebrew/opt/coreutils/libexec/gnubin/ls")
-  ;; sort directories first
-  (setq dired-listing-switches "-aBhl --group-directories-first")
-  (setq
-   dired-recursive-deletes 'always
-   dired-recursive-copies  'always)
-  ;; magit customizations
-  ;; show 50 last commits in magit-status
-  (setq magit-log-section-commit-count 50)
-  ;; show author in magit-status "Recent commits"
-  (setq magit-status-margin '(t age magit-log-margin-width t 18))
-  ;; use goimports instead of gofmt
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; If at beginning of a line, don't make me C-k twice.
-  (setq kill-whole-line t)
-  ;; insert a newline at the end of a file if not present, at the time of saving
-  (setq-default require-final-newline t)
+
   ;; clear trailing whitespaces in lines at the time of saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  ;; fix inappropriate ioctl for device error with gpg encrypted files
-  ;; https://colinxy.github.io/software-installation/2016/09/24/emacs25-easypg-issue.html
-  (setq epa-pinentry-mode 'loopback)
-  ;; enable template expansion like <e + TAB for BEGIN_EXAMPLE block in org-mode
-  ;; src: https://emacs.stackexchange.com/questions/19945/command-to-insert-code-block#comment64358_19946
-  (require 'org-tempo)
-  ;; show a vertical bar to indicate the indent level in certain modes
-  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
-  (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
-  ;; puppet indentation 4
-  (setq puppet-indent-level 4)
-  (setq puppet-include-indent 4)
+
   ;; function to interpret color sequences in text and render properly
   (defun colorize ()
     (require 'ansi-color)
     (interactive)
     (ansi-color-apply-on-region (point-min) (point-max)))
+
+  ;;--------------
+
+  ;; dired customizations
+  ;; source: https://writequit.org/denver-emacs/presentations/2016-05-24-elpy-and-dired.html
+  ;; requires brew install coreutils
+  (if (executable-find "gls")
+      (progn
+        (setq insert-directory-program "gls")
+        (setq dired-listing-switches "-lFaGh1v --group-directories-first"))
+    (setq dired-listing-switches "-ahlF"))
+
+  (setq
+   dired-recursive-deletes 'always
+   dired-recursive-copies  'always
+   )
+
+  ;; --------------------
+
+  ;; magit customizations
+  ;; show 50 last commits in magit-status
+  (setq magit-log-section-commit-count 50)
+
+  ;; show author in magit-status "Recent commits"
+  (setq magit-status-margin '(t age magit-log-margin-width t 18))
+
   ;; magit buffers should appear in the switch menu opened with C-b
   ;; https://github.com/syl20bnr/spacemacs/issues/12837#issuecomment-783248739
   ;; https://www.spacemacs.org/doc/FAQ.html#change-special-buffer-rules
   (push "magit.*: .*" spacemacs-useful-buffers-regexp)
+
   ;; use git resolved by $PATH
   (setq-default magit-git-executable "git")
+
+  ;; --------------------
+
+  ;; customizations for various modes
+
+  ;; required to fix bad session key error in decrypting .gpg files in emacs
+  (setq epa-pinentry-mode 'loopback)
+
+  ;; puppet indentation 4
+  (setq puppet-indent-level 4)
+  (setq puppet-include-indent 4)
+
   ;; format terraform files on save
   ;; src: https://epkg.vercel.app/terraform-mode
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
-  )
+
+  ;; show a vertical bar to indicate the indent level in certain modes
+  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
+  (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
+
+)
 
 
 ;; Do not write anything past this comment. This is where Emacs will
