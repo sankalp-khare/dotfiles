@@ -46,11 +46,13 @@ This function should only modify configuration layer settings."
      go
      groovy
      helm
+     html
      ;; lsp
      latex
      markdown
      multiple-cursors
      org
+     puppet
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -582,6 +584,9 @@ before packages are loaded."
   ;; general stuff
   ;; allow typing y/n instead of yes/no in most cases
   (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; If at beginning of a line, don't make me C-k twice.
+  (setq kill-whole-line t)
 
   ;; ediff buffers side-by-side, like it should
   (setq ediff-split-window-function 'split-window-horizontally)
