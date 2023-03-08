@@ -24,7 +24,7 @@ setopt HIST_IGNORE_ALL_DUPS
 export ANSIBLE_NOCOWS=1
 
 # aliases
-alias ls='exa'
+alias ls='lsd'
 alias gfp='git fetch --prune'
 alias gpfp='git pull && git fetch --prune'
 alias df='duf'
@@ -44,3 +44,9 @@ function fcd {
 source /opt/homebrew/Cellar/git-extras/6.5.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# kubectl aliases
+alias kubectl='grc kubectl' # generic colorizer
+alias k='kubectl'
+alias kc='kubectx'
+alias kn='kubens'

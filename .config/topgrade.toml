@@ -82,3 +82,6 @@ disable = ["gem", "pipx", "node", "pip3", "gnome_shell_extensions", "vagrant", "
 # to upgrade it. Use this only if you installed Topgrade by using a package
 # manager such as Scoop to Cargo
 #self_rename = true
+
+# disable the new text at launch which speaks of a notify-send issue
+display_preamble = false
