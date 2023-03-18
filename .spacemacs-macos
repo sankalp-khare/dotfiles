@@ -55,6 +55,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      org
      puppet
+     python
      react
      rust
      ;; (shell :variables
