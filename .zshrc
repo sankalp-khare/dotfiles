@@ -33,7 +33,7 @@ alias df='duf'
 # indeed cd
 function icd {
     # cd $(find ~/indeed -mindepth 2 -maxdepth 2 -type d -name "$1")
-    cd $(fd --exact-depth 2 -t d ... /Users/sankalp/indeed | fzf)
+    cd $(fd --exact-depth 2 -t d ... ${HOME}/indeed | fzf)
 }
 # fzf cd
 function fcd {
