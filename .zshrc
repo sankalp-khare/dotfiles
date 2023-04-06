@@ -50,3 +50,6 @@ alias kubectl='grc kubectl' # generic colorizer
 alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
+
+# prevent the vi editor problem described at https://github.com/kubernetes/website/issues/674
+export KUBE_EDITOR=vim
