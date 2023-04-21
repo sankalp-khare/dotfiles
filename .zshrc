@@ -12,13 +12,16 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # history-related settings for zsh
 # src: https://www.soberkoder.com/better-zsh-history/
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
-setopt INC_APPEND_HISTORY
+# ref: https://zsh.sourceforge.io/Doc/Release/Options.html
+export HISTFILESIZE=200000
+export HISTSIZE=200000
+export SAVEHIST=100000
 export HISTTIMEFORMAT="[%F %T] "
-setopt EXTENDED_HISTORY
-# setopt HIST_FIND_NO_DUPS
+setopt SHARE_HISTORY     # all sessions write to history as and when the command happens
+setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE # if the first char is a space don't save command to history
+setopt HIST_EXPIRE_DUPS_FIRST
 
 # normal output in ansible (not cowsay)
 export ANSIBLE_NOCOWS=1
