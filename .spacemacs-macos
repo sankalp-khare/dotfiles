@@ -43,6 +43,7 @@ This function should only modify configuration layer settings."
      ansible
      bibtex
      csv
+     docker
      emacs-lisp
      git
      go
