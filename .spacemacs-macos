@@ -27,7 +27,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-ask-for-lazy-installation t
 
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
    dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
@@ -40,32 +40,25 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
-     ansible
-     bibtex
-     csv
-     docker
      emacs-lisp
      git
-     go
-     groovy
+     (go :variables
+         go-backend 'lsp)
      helm
      html
      ;; lsp
-     latex
      markdown
      multiple-cursors
      org
-     puppet
+     php
      python
      react
-     rust
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     terraform
      treemacs
      yaml
      )
@@ -377,12 +370,12 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
-   ;; (default nil) (Emacs 24.4+ only)
+   ;; (default t) (Emacs 24.4+ only)
    dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
-   ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
-   ;; borderless fullscreen. (default nil)
+   ;; variable with `dotspacemacs-maximized-at-startup' to obtain fullscreen
+   ;; without external boxes. Also disables the internal border. (default nil)
    dotspacemacs-undecorated-at-startup nil
 
    ;; A value from the range (0..100), in increasing opacity, which describes
@@ -552,7 +545,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile t))
+   dotspacemacs-byte-compile nil))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -588,9 +581,6 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   ;; general stuff
-  ;; allow typing y/n instead of yes/no in most cases
-  (fset 'yes-or-no-p 'y-or-n-p)
-
   ;; If at beginning of a line, don't make me C-k twice.
   (setq kill-whole-line t)
 
@@ -601,26 +591,8 @@ before packages are loaded."
   ;; http://stackoverflow.com/a/7998271
   (setq split-width-threshold nil)
 
-  ;; clear trailing whitespaces in lines at the time of saving
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-  ;; function to interpret color sequences in text and render properly
-  (defun colorize ()
-    (require 'ansi-color)
-    (interactive)
-    (ansi-color-apply-on-region (point-min) (point-max)))
-
-  ;;--------------
-
+  ;; --------------------
   ;; dired customizations
-  ;; source: https://writequit.org/denver-emacs/presentations/2016-05-24-elpy-and-dired.html
-  ;; requires brew install coreutils
-  (if (executable-find "gls")
-      (progn
-        (setq insert-directory-program "gls")
-        (setq dired-listing-switches "-lFaGh1v --group-directories-first"))
-    (setq dired-listing-switches "-ahlF"))
-
   (setq
    dired-recursive-deletes 'always
    dired-recursive-copies  'always
@@ -640,19 +612,10 @@ before packages are loaded."
   ;; https://www.spacemacs.org/doc/FAQ.html#change-special-buffer-rules
   (push "magit.*: .*" spacemacs-useful-buffers-regexp)
 
-  ;; use git resolved by $PATH
-  (setq-default magit-git-executable "git")
-
-  ;; --------------------
-
   ;; customizations for various modes
 
   ;; required to fix bad session key error in decrypting .gpg files in emacs
   (setq epa-pinentry-mode 'loopback)
-
-  ;; puppet indentation 4
-  (setq puppet-indent-level 4)
-  (setq puppet-include-indent 4)
 
   ;; format terraform files on save
   ;; src: https://epkg.vercel.app/terraform-mode
@@ -661,7 +624,6 @@ before packages are loaded."
   ;; show a vertical bar to indicate the indent level in certain modes
   (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
-
 )
 
 
