@@ -10,3 +10,6 @@ disabled = false
 # enable
 disabled = false
 time_format = "%F %T"
+
+[git_commit]
+only_detached = false
