@@ -44,7 +44,7 @@ function fcd {
 }
 
 # imports
-source /opt/homebrew/Cellar/git-extras/7.0.0/share/git-extras/git-extras-completion.zsh
+source /opt/homebrew/Cellar/git-extras/7.1.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -56,3 +56,7 @@ alias kn='kubens'
 
 # prevent the vi editor problem described at https://github.com/kubernetes/website/issues/674
 export KUBE_EDITOR=vim
+
+# use bat to show pretty man pages
+export MANPAGER="sh -c 'col -bx | bat -l man -p'" 
+
