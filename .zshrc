@@ -49,6 +49,10 @@ function gurl {
     CURRENT_BRANCH=$(git branch --show-current)
     echo "https://${REPO}/-/tree/${CURRENT_BRANCH}/${FILE_PATH_IN_REPO}"
 }
+# gurlo -> gurl open -> git url open
+function gurlo {
+    open $(gurl $1)
+}
 
 # imports
 source /opt/homebrew/Cellar/git-extras/7.1.0/share/git-extras/git-extras-completion.zsh
