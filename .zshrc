@@ -42,6 +42,13 @@ function icd {
 function fcd {
     cd $(fd -t d . | fzf)
 }
+# gurl -> git url -> print URL of file passed as argument
+function gurl {
+    REPO=$(git remote get-url origin | sed 's/^git@//g' | sed 's/.git$//g' | sed 's/\:/\//g')
+    FILE_PATH_IN_REPO=$(git ls-files --full-name $1)
+    CURRENT_BRANCH=$(git branch --show-current)
+    echo "https://${REPO}/-/tree/${CURRENT_BRANCH}/${FILE_PATH_IN_REPO}"
+}
 
 # imports
 source /opt/homebrew/Cellar/git-extras/7.1.0/share/git-extras/git-extras-completion.zsh
