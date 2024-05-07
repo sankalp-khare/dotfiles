@@ -38,9 +38,9 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ansible 
      ;; auto-completion
      ;; better-defaults
+     docker
      emacs-lisp
      git
      (go :variables
@@ -52,6 +52,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      org
      php
+     puppet
      python
      react
      ;; (shell :variables
@@ -60,6 +61,7 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
+     terraform
      treemacs
      yaml
      )
@@ -346,6 +348,10 @@ It should only modify the values of Spacemacs settings."
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
+   ;; It is also possible to use a posframe with the following cons cell
+   ;; `(posframe . position)' where position can be one of `center',
+   ;; `top-center', `bottom-center', `top-left-corner', `top-right-corner',
+   ;; `top-right-corner', `bottom-left-corner' or `bottom-right-corner'
    ;; (default 'bottom)
    dotspacemacs-which-key-position 'bottom
 
@@ -625,6 +631,18 @@ before packages are loaded."
   ;; show a vertical bar to indicate the indent level in certain modes
   (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
+
+  ;; https://www.masteringemacs.org/article/whats-new-in-emacs-29-1
+  ;; really useful when blocks span more than the visible area
+  (setq show-paren-context-when-offscreen 'overlay)
+
+  ;; proced is emacs' built-in thing for listing/interacting with running processes
+  ;; https://www.masteringemacs.org/article/displaying-interacting-processes-proced
+  (setq proced-enable-color-flag t)
+
+  ;; auto-insert closing bracket
+  ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Matching.html
+  ;; (setq electric-pair-mode t)
 )
 
 

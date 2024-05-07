@@ -1,14 +1,4 @@
-
 eval "$(starship init zsh)"
-
-# coloured manpages
-export LESS_TERMCAP_mb=$'\E[01;31m'				# begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'	# begin bold
-export LESS_TERMCAP_me=$'\E[0m'						# end mode
-export LESS_TERMCAP_se=$'\E[0m'						# end standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'		# begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'						# end underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # history-related settings for zsh
 # src: https://www.soberkoder.com/better-zsh-history/
@@ -55,7 +45,7 @@ function gurlo {
 }
 
 # imports
-source /opt/homebrew/Cellar/git-extras/7.1.0/share/git-extras/git-extras-completion.zsh
+source /opt/homebrew/Cellar/git-extras/7.2.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -65,5 +55,19 @@ alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
 
+# faster than the ketall plugin. stolen from a colleague who I won't name without checking with them first
+function kga {
+    namespaced_resources() {
+        kubectl api-resources --cached --namespaced --verbs get --no-headers -o name |
+            grep -E -v '^events(\.events\.k8s\.io)?$' | grep -E -v 'externalmetrics'
+    }
+    kubectl get $(namespaced_resources | sort | paste -sd ,) "$@" 2> >(grep -v '^Error from server (Forbidden):' >&2)
+}
+
 # prevent the vi editor problem described at https://github.com/kubernetes/website/issues/674
-export KUBE_EDITOR=vim
+export KUBE_EDITOR=emacsclient
+
+# use bat to show pretty man pages
+export MANPAGER="sh -c 'col -bx | bat -l man -p'" 
+
+eval "$(zoxide init zsh)"
