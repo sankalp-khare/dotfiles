@@ -643,6 +643,11 @@ before packages are loaded."
   ;; auto-insert closing bracket
   ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Matching.html
   ;; (setq electric-pair-mode t)
+
+  ;; configure deadgrep to search hidden files too
+  ;; https://github.com/Wilfred/deadgrep/pull/138/files
+  ;; https://github.com/Wilfred/deadgrep/issues/100
+  (setq deadgrep-extra-arguments '("--no-ignore" "--hidden"))
 )
 
 
