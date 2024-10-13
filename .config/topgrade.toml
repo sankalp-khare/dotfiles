@@ -16,7 +16,7 @@
 
 # Disable specific steps - same options as the command line flag
 # disable = ["system", "emacs"]
-disable = ["gem", "node", "pip3", "gnome_shell_extensions", "vagrant", "ruby_gems", "tlmgr", "helm", "tldr"]
+disable = ["gem", "node", "pip3", "gnome_shell_extensions", "vagrant", "ruby_gems", "tlmgr", "helm", "tldr", "poetry"]
 
 # Ignore failures for these steps
 # ignore_failures = ["powershell"]
