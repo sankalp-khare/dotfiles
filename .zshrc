@@ -20,6 +20,9 @@ export ANSIBLE_NOCOWS=1
 alias ls='lsd'
 alias gfp='git fetch --prune'
 alias gpfp='git pull && git fetch --prune'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git checkout '
 alias df='duf'
 
 # functions
@@ -45,7 +48,7 @@ function gurlo {
 }
 
 # imports
-source /opt/homebrew/Cellar/git-extras/7.2.0/share/git-extras/git-extras-completion.zsh
+source /opt/homebrew/Cellar/git-extras/7.3.0/share/git-extras/git-extras-completion.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -57,11 +60,11 @@ alias kn='kubens'
 
 # faster than the ketall plugin. stolen from a colleague who I won't name without checking with them first
 function kga {
-    namespaced_resources() {
-        kubectl api-resources --cached --namespaced --verbs get --no-headers -o name |
-            grep -E -v '^events(\.events\.k8s\.io)?$' | grep -E -v 'externalmetrics'
-    }
-    kubectl get $(namespaced_resources | sort | paste -sd ,) "$@" 2> >(grep -v '^Error from server (Forbidden):' >&2)
+	  namespaced_resources() {
+        \kubectl api-resources --cached --namespaced --verbs get --no-headers -o name |
+        	  grep -E -v '^events(\.events\.k8s\.io)?$' | grep -E -v 'externalmetrics'
+	  }
+	  kubectl get $(namespaced_resources | sort | paste -sd ,) "$@" 2> >(grep -v '^Error from server (Forbidden):' >&2)
 }
 
 # prevent the vi editor problem described at https://github.com/kubernetes/website/issues/674
