@@ -24,6 +24,7 @@ alias gb='git branch'
 alias gba='git branch -a'
 alias gc='git checkout '
 alias df='duf'
+alias docker='nerdctl'
 
 # functions
 # indeed cd
@@ -65,6 +66,21 @@ function kga {
         	  grep -E -v '^events(\.events\.k8s\.io)?$' | grep -E -v 'externalmetrics'
 	  }
 	  kubectl get $(namespaced_resources | sort | paste -sd ,) "$@" 2> >(grep -v '^Error from server (Forbidden):' >&2)
+}
+
+function wclock {
+
+    # source https://stackoverflow.com/a/370105/1527814
+    PT=`env TZ=US/Pacific date`
+    CT=`env TZ=US/Central date`
+    IST=`env TZ=Asia/Calcutta date`
+    AT=`env TZ=Asia/Tokyo date`
+
+    echo "Santa Clara/PT    $PT"
+    echo "Central/CT        $CT"
+    echo "Delhi/IST         $IST"
+    echo "Tokyo/JST         $AT"
+
 }
 
 # prevent the vi editor problem described at https://github.com/kubernetes/website/issues/674
