@@ -44,3 +44,4 @@
 
 copy-on-select = clipboard
 font-size = 14
+auto-update = off
