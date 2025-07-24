@@ -54,6 +54,10 @@ This function should only modify configuration layer settings."
      php
      puppet
      python
+     (ranger :variables
+             ranger-override-dired 'ranger
+             ranger-show-preview t
+             ranger-show-hidden t)
      react
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -62,7 +66,9 @@ This function should only modify configuration layer settings."
      ;; syntax-checking
      ;; version-control
      terraform
+     toml
      treemacs
+     typescript
      yaml
      )
 
@@ -674,6 +680,11 @@ before packages are loaded."
   ;; https://github.com/Wilfred/deadgrep/issues/100
   (setq deadgrep-extra-arguments '("--no-ignore" "--hidden"))
 
+  ;; fix transient mode error on opening magit-status
+  ;; https://www.reddit.com/r/emacs/comments/1kq6i4f/comment/mt3nboq/
+  ;; symbol's definition is void transient--set-layout
+  ;; after setting the below, do M-x package-recompile-all
+  (setq package-install-upgrade-built-in t)
   )
 
 
